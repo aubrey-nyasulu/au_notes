@@ -1,6 +1,6 @@
 import { Text, View } from "react-native";
 
-export default function Index() {
+export default function AI() {
   return (
     <View
       style={{
@@ -9,7 +9,7 @@ export default function Index() {
         alignItems: "center",
       }}
     >
-      <Text style={{ opacity: 0.5 }}>📌</Text>
+      <Text style={{ opacity: 0.5 }}>AI</Text>
     </View>
   );
 }
