@@ -1,24 +1,42 @@
-import { Link } from "expo-router";
-import { Text, TouchableOpacity, View } from "react-native";
+import { Link } from "expo-router"
+import { useState } from "react"
+import { Text, TouchableOpacity, View } from "react-native"
 
 export default function Note({ note }: { note: Note }) {
+
+    const [height, setHeight] = useState(0)
+
     return (
-        <Link href={`/note/${note.id}`} style={{ width: '100%' }} asChild>
+        <Link
+            href={`/note/${note.id}`}
+            style={{
+                width: '100%',
+                overflow: 'hidden'
+            }} asChild>
             <TouchableOpacity
                 style={{
-                    width: "100%",
-                    maxHeight: 300,
+                    maxHeight: 290,
                     overflow: "hidden",
-                    padding: 16,
+                    padding: 10,
                     borderColor: '#ccc',
                     borderWidth: 1,
                     borderRadius: 12,
+                    alignSelf: 'flex-start',
                 }}
             >
-                <View style={{ overflow: 'hidden', gap: 8 }}>
+                <View
+                    onLayout={(event) => {
+                        if (height > 0) return
+
+                        const { height: viewHeight } = event.nativeEvent.layout
+                        console.log({ viewHeight })
+                        setHeight(viewHeight)
+                    }}
+                    style={{ height: height > (300 - 32) ? '100%' : undefined, overflow: 'hidden', gap: 8 }}
+                >
                     {
                         note?.title.trim().length > 0 &&
-                        <Text style={{ fontSize: 20, fontWeight: '600', opacity: 0.8 }}>
+                        <Text style={{ fontSize: 20, fontWeight: '500', opacity: 0.8 }}>
                             {note?.title.trim()}
                         </Text>
                     }
@@ -31,5 +49,5 @@ export default function Note({ note }: { note: Note }) {
                 </View>
             </TouchableOpacity>
         </Link>
-    );
+    )
 }

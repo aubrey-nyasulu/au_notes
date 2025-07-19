@@ -9,6 +9,7 @@ export default function NotesScreen() {
                 justifyContent: "center",
                 alignItems: "center",
                 width: '100%',
+                height: '100%',
             }}
         >
             <Notes />
