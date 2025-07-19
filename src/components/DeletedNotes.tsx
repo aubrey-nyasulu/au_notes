@@ -41,6 +41,8 @@ export default function DeletedNotes() {
                     </View>
                 </View>
             }
+
+            <View style={{ height: 120 }}></View>
         </ScrollView>
     )
 }

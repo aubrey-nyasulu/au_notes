@@ -99,8 +99,12 @@ export function useNotesContext(initialState: Pick<InitialState, 'activeNotes' |
         }
     }
 
-    function hardDelete(noteId: number) {
-        setDeletedNotes((prevNotes) => prevNotes.filter(({ id }) => id !== noteId));
+    function hardDelete(noteId: number | number[]) {
+        if (typeof noteId === 'number') {
+            setDeletedNotes((prevNotes) => prevNotes.filter(({ id }) => id !== noteId));
+        } else {
+            setDeletedNotes((prevNotes) => prevNotes.filter(({ id }) => !noteId.includes(id)));
+        }
     }
 
     const restoreNote = (noteId: number | number[]) => {

@@ -3,7 +3,7 @@ import NotesContext from "@/src/context/NotesContext";
 import UXContext from "@/src/context/UXContext";
 import { Drawer } from "expo-router/drawer";
 import { useContext } from "react";
-import { Pressable, Text, useWindowDimensions } from "react-native";
+import { Pressable, Text, useWindowDimensions, View } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 export default function NotesLayout() {
@@ -54,14 +54,25 @@ export default function NotesLayout() {
                                 </Pressable>
                             )
                             : (
-                                <Pressable
-                                    onPress={() => {
-                                        restoreNote(selectedNotes)
-                                        setSelectedNotes([])
-                                    }}
-                                    style={{ padding: 6, backgroundColor: '#ccc' }}>
-                                    <Text>Restore</Text>
-                                </Pressable>
+                                <View style={{ flexDirection: 'row', gap: 8 }}>
+                                    <Pressable
+                                        onPress={() => {
+                                            restoreNote(selectedNotes)
+                                            setSelectedNotes([])
+                                        }}
+                                        style={{ padding: 6, backgroundColor: '#ccc' }}>
+                                        <Text>Restore</Text>
+                                    </Pressable>
+
+                                    <Pressable
+                                        onPress={() => {
+                                            hardDelete(selectedNotes)
+                                            setSelectedNotes([])
+                                        }}
+                                        style={{ padding: 6, backgroundColor: '#ccc' }}>
+                                        <Text>Delete</Text>
+                                    </Pressable>
+                                </View>
                             )
 
                     )
