@@ -1,9 +1,23 @@
 import { Link } from "expo-router"
-import { useState } from "react"
+import { useContext, useState } from "react"
 import { Text, TouchableOpacity, View } from "react-native"
+import AppContext from "../context/AppContext"
 
 export default function Note({ note }: { note: Note }) {
     const [height, setHeight] = useState(0)
+    const [borderColor, setBorderColor] = useState<'#ccc' | 'green'>('#ccc')
+
+    const { selectedNotes, setSelectedNotes } = useContext(AppContext)
+
+    const changeBorderColor = () => {
+        if (borderColor === '#ccc') {
+            setBorderColor('green')
+        } else {
+            setBorderColor('#ccc')
+        }
+
+        console.log({ selectedNotes })
+    }
 
     return (
         <Link
@@ -13,12 +27,25 @@ export default function Note({ note }: { note: Note }) {
                 overflow: 'hidden'
             }} asChild>
             <TouchableOpacity
+                onPress={(ev) => {
+                    if (selectedNotes.length) {
+                        ev.preventDefault()
+                        changeBorderColor()
+                        setSelectedNotes(prev => prev.filter((id) => id !== note.id))
+                        setSelectedNotes(prev => [...prev, note.id])
+                    }
+                }
+                }
+                onLongPress={(ev) => {
+                    changeBorderColor()
+                    setSelectedNotes(prev => [...prev, note.id])
+                }}
                 style={{
                     maxHeight: 290,
                     overflow: "hidden",
                     padding: 10,
-                    borderColor: '#ccc',
-                    borderWidth: 1,
+                    borderColor,
+                    borderWidth: borderColor === "#ccc" ? 1 : 2,
                     borderRadius: 12,
                     alignSelf: 'flex-start',
                 }}

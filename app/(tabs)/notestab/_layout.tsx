@@ -1,3 +1,5 @@
+import AppContext from "@/src/context/AppContext";
+import NotesContext from "@/src/context/NotesContext";
 import UXContext from "@/src/context/UXContext";
 import { Drawer } from "expo-router/drawer";
 import { useContext } from "react";
@@ -7,6 +9,8 @@ import { GestureHandlerRootView } from "react-native-gesture-handler";
 export default function NotesLayout() {
     const { width } = useWindowDimensions()
 
+    const { selectedNotes, setSelectedNotes } = useContext(AppContext)
+    const { softDelete } = useContext(NotesContext)
     const { setNumberOfColums } = useContext(UXContext)
 
     return (
@@ -17,11 +21,25 @@ export default function NotesLayout() {
                     options={{
                         title: "Notes",
                         headerRight: () => (
-                            <Pressable
-                                onPress={() => setNumberOfColums(prevNumber => prevNumber === 1 ? 2 : 1)}
-                                style={{ padding: 6, backgroundColor: '#ccc' }}>
-                                <Text>change layout</Text>
-                            </Pressable>
+                            selectedNotes.length === 0
+                                ? (
+                                    <Pressable
+                                        onPress={() => setNumberOfColums(prevNumber => prevNumber === 1 ? 2 : 1)}
+                                        style={{ padding: 6, backgroundColor: '#ccc' }}>
+                                        <Text>change layout</Text>
+                                    </Pressable>
+                                )
+                                : (
+                                    <Pressable
+                                        onPress={() => {
+                                            softDelete(selectedNotes)
+                                            setSelectedNotes([])
+                                        }}
+                                        style={{ padding: 6, backgroundColor: '#ccc' }}>
+                                        <Text>Delete</Text>
+                                    </Pressable>
+                                )
+
                         )
                     }} />
                 <Drawer.Screen name="deletednotes" options={{ title: "Trash" }} />

@@ -8,7 +8,7 @@ type InitialState = {
     getNote: (id: number) => Note | undefined
     addNote: (noteContents: Pick<Note, "title" | "body">) => Note
     updateNote: (noteContents: Pick<Note, "id" | "title" | "body">) => Note
-    softDelete: () => any
+    softDelete: (id: number | number[]) => any
     hardDelete: () => any
     restoreNote: () => any
     popurate: (n?: number) => void
@@ -84,13 +84,19 @@ export function useNotesContext(initialState: Pick<InitialState, 'activeNotes' |
         return { ...note, ...noteContents };
     };
 
-    function softDelete(noteId: number) {
-        const targetNote = activeNotes.find(({ id }) => id === noteId);
+    function softDelete(noteId: number | number[]) {
+        if (typeof noteId === 'number') {
+            const targetNote = activeNotes.find(({ id }) => id === noteId);
 
-        if (!targetNote) return
+            if (!targetNote) return
 
-        setDeletedNotes((prevNotes) => [targetNote, ...prevNotes]);
-        setActiveNotes((prevNotes) => prevNotes.filter(({ id }) => id !== noteId));
+            setDeletedNotes((prevNotes) => [targetNote, ...prevNotes]);
+            setActiveNotes((prevNotes) => prevNotes.filter(({ id }) => id !== noteId));
+        } else {
+            const targetNotes = activeNotes.filter(({ id }) => noteId.includes(id));
+            setDeletedNotes((prevNotes) => [...targetNotes, ...prevNotes]);
+            setActiveNotes((prevNotes) => prevNotes.filter(({ id }) => !noteId.includes(id)));
+        }
     }
 
     function hardDelete(noteId: number) {
