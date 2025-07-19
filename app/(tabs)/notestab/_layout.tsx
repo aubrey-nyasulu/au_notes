@@ -10,7 +10,7 @@ export default function NotesLayout() {
     const { width } = useWindowDimensions()
 
     const { selectedNotes, setSelectedNotes } = useContext(AppContext)
-    const { softDelete } = useContext(NotesContext)
+    const { restoreNote, softDelete, hardDelete } = useContext(NotesContext)
     const { setNumberOfColums } = useContext(UXContext)
 
     return (
@@ -42,7 +42,30 @@ export default function NotesLayout() {
 
                         )
                     }} />
-                <Drawer.Screen name="deletednotes" options={{ title: "Trash" }} />
+                <Drawer.Screen name="deletednotes" options={{
+                    title: "Trash",
+                    headerRight: () => (
+                        selectedNotes.length === 0
+                            ? (
+                                <Pressable
+                                    onPress={() => setNumberOfColums(prevNumber => prevNumber === 1 ? 2 : 1)}
+                                    style={{ padding: 6, backgroundColor: '#ccc' }}>
+                                    <Text>change layout</Text>
+                                </Pressable>
+                            )
+                            : (
+                                <Pressable
+                                    onPress={() => {
+                                        restoreNote(selectedNotes)
+                                        setSelectedNotes([])
+                                    }}
+                                    style={{ padding: 6, backgroundColor: '#ccc' }}>
+                                    <Text>Restore</Text>
+                                </Pressable>
+                            )
+
+                    )
+                }} />
             </Drawer>
         </GestureHandlerRootView>
     )

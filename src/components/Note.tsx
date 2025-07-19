@@ -15,8 +15,6 @@ export default function Note({ note }: { note: Note }) {
         } else {
             setBorderColor('#ccc')
         }
-
-        console.log({ selectedNotes })
     }
 
     return (

@@ -10,7 +10,7 @@ type InitialState = {
     updateNote: (noteContents: Pick<Note, "id" | "title" | "body">) => Note
     softDelete: (id: number | number[]) => any
     hardDelete: () => any
-    restoreNote: () => any
+    restoreNote: (id: number | number[]) => any
     popurate: (n?: number) => void
 }
 
@@ -103,16 +103,24 @@ export function useNotesContext(initialState: Pick<InitialState, 'activeNotes' |
         setDeletedNotes((prevNotes) => prevNotes.filter(({ id }) => id !== noteId));
     }
 
-    const restoreNote = (noteId: number) => {
-        const targetNote = deletedNotes.find(({ id }) => id === noteId);
+    const restoreNote = (noteId: number | number[]) => {
+        if (typeof noteId === 'number') {
+            const targetNote = deletedNotes.find(({ id }) => id === noteId);
 
-        if (!targetNote) return;
+            if (!targetNote) return;
 
-        const notes = [...activeNotes, targetNote];
-        notes.sort((a, b) => b?.id - a?.id);
+            const notes = [...activeNotes, targetNote];
+            notes.sort((a, b) => b?.id - a?.id);
 
-        setActiveNotes(notes);
-        setDeletedNotes((prevNotes) => prevNotes.filter(({ id }) => id !== noteId));
+            setActiveNotes(notes);
+            setDeletedNotes((prevNotes) => prevNotes.filter(({ id }) => id !== noteId));
+        } else {
+            const targetNotes = deletedNotes.filter(({ id }) => noteId.includes(id));
+            setActiveNotes((prevNotes) => (
+                [...targetNotes, ...prevNotes].sort((a, b) => b.id - a.id)
+            ));
+            setDeletedNotes((prevNotes) => prevNotes.filter(({ id }) => !noteId.includes(id)));
+        }
     };
 
     const popurate = useCallback((n = 50) => {
@@ -139,6 +147,7 @@ export function useNotesContext(initialState: Pick<InitialState, 'activeNotes' |
 
     return {
         activeNotes,
+        deletedNotes,
         nextIdSlot,
         getNote,
         addNote,
