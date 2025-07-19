@@ -6,7 +6,7 @@ type InitialState = {
 }
 
 export const initialState: InitialState = {
-    numberOfColumns: 1,
+    numberOfColumns: 2,
     setNumberOfColums: () => { }
 }
 

@@ -1,11 +1,11 @@
 import { useContext } from "react"
 import { ScrollView, useWindowDimensions, View } from "react-native"
-import AppContext from "../context/AppContext"
+import NotesContext from "../context/NotesContext"
 import UXContext from "../context/UXContext"
 import Note from "./Note"
 
 export default function Notes() {
-    const { activeNotes } = useContext(AppContext)
+    const { activeNotes } = useContext(NotesContext)
 
     const { numberOfColumns } = useContext(UXContext)
 

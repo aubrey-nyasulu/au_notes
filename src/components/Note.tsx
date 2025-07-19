@@ -3,7 +3,6 @@ import { useState } from "react"
 import { Text, TouchableOpacity, View } from "react-native"
 
 export default function Note({ note }: { note: Note }) {
-
     const [height, setHeight] = useState(0)
 
     return (

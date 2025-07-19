@@ -1,4 +1,4 @@
-import AppContext from "@/src/context/AppContext";
+import NotesContext from "@/src/context/NotesContext";
 import { Stack, useLocalSearchParams } from "expo-router";
 import { useContext, useEffect, useState } from "react";
 import {
@@ -14,9 +14,9 @@ export default function NoteScreen() {
 
   const { height } = useWindowDimensions();
 
-  const { getNote } = useContext(AppContext);
+  const { getNote, updateNote } = useContext(NotesContext);
 
-  const [note, setNote] = useState<Note | null>(null);
+  const [note, setNote] = useState<Note>({ id, body: '', title: '', done: false });
 
   useEffect(() => {
     const note = getNote(id)
@@ -27,6 +27,17 @@ export default function NoteScreen() {
       setNote({ id, title: "", body: "", done: false });
     }
   }, [id, getNote]);
+
+
+  const handleTextChange = (value: string, target: string) => {
+    if (target === "title") {
+      const updatedNote = updateNote({ ...note, title: value });
+      setNote(updatedNote);
+    } else {
+      const updatedNote = updateNote({ ...note, body: value });
+      setNote(updatedNote);
+    }
+  };
 
   return (
     <>
@@ -44,6 +55,9 @@ export default function NoteScreen() {
               value={note?.title}
               placeholder="Title"
               placeholderTextColor={"#aaa9"}
+              onChangeText={(value) => {
+                handleTextChange(value, "title");
+              }}
               style={{
                 fontSize: 20,
                 fontWeight: "500",
@@ -54,6 +68,9 @@ export default function NoteScreen() {
               value={note?.body}
               placeholder="Note"
               placeholderTextColor={"#aaa9"}
+              onChangeText={(value) => {
+                handleTextChange(value, "body");
+              }}
               style={{
                 paddingTop: 16,
                 fontSize: 16,
