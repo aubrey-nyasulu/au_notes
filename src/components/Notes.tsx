@@ -15,7 +15,7 @@ export default function Notes() {
             ItemSeparatorComponent={() => (
                 <View style={{ width: '100%', height: 8 }}></View>
             )}
-            ListHeaderComponent={<View style={{ width, padding: 16 }}></View>}
+            ListHeaderComponent={<View style={{ width, padding: 8 }}></View>}
             ListFooterComponent={<View style={{ padding: 64 }}></View>}
             refreshing={false}
             onRefresh={() => {

@@ -1,4 +1,5 @@
 import { createContext, useCallback, useEffect, useState } from "react"
+import { body } from "./temp"
 
 type InitialState = {
     activeNotes: Note[]
@@ -40,15 +41,15 @@ export function useAppContext(initialState: InitialState) {
             generatedNotes.push({
                 id: i,
                 title: `sample note ${i}`,
-                body: "some content",
+                body: body.split(' ').slice(0, Math.floor(Math.random() * 100)).join(' '),
                 done: false,
             })
         }
 
         setNextIdSlot((currId) => (currId += num + 1))
 
-        setActiveNotes([...generatedNotes])
-    }, [nextIdSlot])
+        setActiveNotes(prevNotes => ([...generatedNotes, ...prevNotes]))
+    }, [])
 
     useEffect(() => {
         popurate(50)
