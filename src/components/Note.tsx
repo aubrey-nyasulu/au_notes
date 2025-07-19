@@ -29,7 +29,7 @@ export default function Note({ note }: { note: Note }) {
                         if (height > 0) return
 
                         const { height: viewHeight } = event.nativeEvent.layout
-                        console.log({ viewHeight })
+
                         setHeight(viewHeight)
                     }}
                     style={{ height: height > (300 - 32) ? '100%' : undefined, overflow: 'hidden', gap: 8 }}
