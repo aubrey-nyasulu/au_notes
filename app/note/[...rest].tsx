@@ -41,17 +41,25 @@ export default function NoteScreen() {
 
   return (
     <>
-      <Stack.Screen options={{ title: '' }} />
+      <Stack.Screen options={{
+        title: '',
+        headerStyle: {
+          backgroundColor: '#eeed'
+        },
+        headerTransparent: true,
+      }} />
       <View style={{ padding: 0, flex: 1 }}>
         <ScrollView style={{ flex: 1 }}>
           <View
             style={{
               padding: 16,
-              height: height - 80,
               flex: 1,
             }}
           >
+            <View style={{ height: 96 }}></View>
+
             <TextInput
+              multiline
               value={note?.title}
               placeholder="Title"
               placeholderTextColor={"#aaa9"}
@@ -72,14 +80,16 @@ export default function NoteScreen() {
                 handleTextChange(value, "body");
               }}
               style={{
-                paddingTop: 16,
+                paddingTop: 4,
                 fontSize: 16,
-                opacity: 0.6,
+                opacity: 0.8,
                 flex: 1,
                 textAlignVertical: "top",
               }}
             />
           </View>
+
+          <View style={{ height: 96 }}></View>
         </ScrollView>
       </View>
     </>

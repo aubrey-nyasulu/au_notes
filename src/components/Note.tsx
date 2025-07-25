@@ -78,7 +78,7 @@ export default function Note({ note }: { note: Note }) {
                 >
                     {
                         note?.title.trim().length > 0 &&
-                        <Text style={{ fontSize: 18, fontWeight: '500', opacity: 0.8 }}>
+                        <Text style={{ fontSize: 18, fontWeight: '500', opacity: 0.7 }}>
                             {note?.title.trim()}
                         </Text>
                     }
