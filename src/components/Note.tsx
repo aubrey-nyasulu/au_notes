@@ -5,13 +5,13 @@ import AppContext from "../context/AppContext"
 
 export default function Note({ note }: { note: Note }) {
     const [height, setHeight] = useState(0)
-    const [borderColor, setBorderColor] = useState<'#eee' | 'green'>('#eee')
+    const [borderColor, setBorderColor] = useState<'#eee' | '#000'>('#eee')
 
     const { selectedNotes, setSelectedNotes } = useContext(AppContext)
 
     const changeBorderColor = () => {
         if (borderColor === '#eee') {
-            setBorderColor('green')
+            setBorderColor('#000')
         } else {
             setBorderColor('#eee')
         }
@@ -23,6 +23,7 @@ export default function Note({ note }: { note: Note }) {
 
             setBorderColor('#eee')
         }
+
     }, [selectedNotes.length, note.id])
 
     return (
@@ -38,7 +39,7 @@ export default function Note({ note }: { note: Note }) {
                         ev.preventDefault()
                         changeBorderColor()
 
-                        const isSelected = !!selectedNotes.find(id => id === note.id)
+                        const isSelected = !!selectedNotes.includes(note.id)
 
                         if (isSelected) {
                             setSelectedNotes(prev => prev.filter((id) => id !== note.id))
@@ -53,8 +54,8 @@ export default function Note({ note }: { note: Note }) {
                     setSelectedNotes(prev => [...prev, note.id])
                 }}
                 style={{
-                    backgroundColor: '#fff',
-                    elevation: 0.5,
+                    backgroundColor: borderColor === "#eee" ? '#fff9' : '#fff',
+                    elevation: borderColor === "#eee" ? 0.5 : 4,
                     shadowOffset: { width: 0, height: 2 },
                     maxHeight: 290,
                     overflow: "hidden",

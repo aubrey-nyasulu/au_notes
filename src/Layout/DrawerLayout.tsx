@@ -23,8 +23,6 @@ export default function DrawerLayout() {
                         title: "Notes",
                         drawerStyle: {
                             backgroundColor: '#fff',
-                            borderTopRightRadius: 0,
-                            borderBottomRightRadius: 0,
                         },
                         drawerType: 'back',
                         header: () => (
@@ -41,8 +39,6 @@ export default function DrawerLayout() {
                         title: "Trash",
                         drawerStyle: {
                             backgroundColor: '#fff',
-                            borderTopRightRadius: 0,
-                            borderBottomRightRadius: 0,
                         },
                         drawerType: 'back',
                         header: () => (
