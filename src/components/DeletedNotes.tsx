@@ -32,6 +32,7 @@ export default function DeletedNotes() {
                                 .map((note) => (<Note key={note.id} note={note} />))
                         }
                     </View>
+
                     <View style={{ gap: 8, width: (width / 2) - (8 * 1.5), }}>
                         {
                             deletedNotes
