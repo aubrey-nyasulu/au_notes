@@ -23,14 +23,15 @@ export default function NotesScreen() {
             <Link
                 href={`/note/${nextIdSlot}`}
                 style={{
-                    backgroundColor: '#000',
+                    backgroundColor: 'dodgerblue',
                     position: 'absolute',
-                    bottom: 120,
-                    right: 16,
+                    bottom: 110,
+                    right: 8,
                     padding: 8,
-                    borderRadius: 16,
+                    borderRadius: 8,
+                    elevation: 0.5
                 }}>
-                <Icon name="plus" size={40} color={'#fff'} />
+                <Icon name="plus" size={32} color={'#fff'} />
             </Link>
         </View>
     );

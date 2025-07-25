@@ -134,8 +134,8 @@ export function useNotesContext(initialState: Pick<InitialState, 'activeNotes' |
         for (let i = num; i >= nextIdSlot; i--) {
             generatedNotes.push({
                 id: i,
-                title: `sample note ${i}`,
-                body: body.split(' ').slice(0, Math.floor(Math.random() * 100)).join(' '),
+                title: `Note ${i}`,
+                body: body.split(' ').slice(0, Math.floor(Math.random() * 60)).join(' '),
                 done: false,
             })
         }

@@ -1,17 +1,5 @@
-import { Tabs } from "expo-router";
+import TabsLayout from "@/src/Layout/TabsLayout";
 
-export default function TabsLayout() {
-  return (
-    <Tabs screenOptions={{
-      headerShown: false,
-      tabBarStyle: {
-        borderTopLeftRadius: 32,
-        borderTopRightRadius: 32,
-        position: "absolute",
-      }
-    }}>
-      <Tabs.Screen name="notestab" />
-      <Tabs.Screen name="aitab" />
-    </Tabs>
-  )
+export default function Tabs() {
+  return <TabsLayout />
 }

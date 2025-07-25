@@ -12,7 +12,7 @@ export default function DeletedNotes() {
     const { width } = useWindowDimensions()
 
     return (
-        <ScrollView style={{ width, paddingTop: 16, paddingHorizontal: 8, }}>
+        <ScrollView style={{ width, paddingTop: 70, paddingHorizontal: 8, }}>
             {
                 numberOfColumns === 1 &&
                 <View style={{ gap: 8, width: '100%', }}>

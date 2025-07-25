@@ -12,7 +12,7 @@ export default function Notes() {
     const { width } = useWindowDimensions()
 
     return (
-        <ScrollView style={{ width, paddingTop: 16, paddingHorizontal: 8, }}>
+        <ScrollView style={{ width, paddingTop: 70, paddingHorizontal: 8, }}>
             {
                 numberOfColumns === 1 &&
                 <View style={{ gap: 8, width: '100%', }}>
@@ -42,7 +42,7 @@ export default function Notes() {
                 </View>
             }
 
-            <View style={{ height: 120 }}></View>
+            <View style={{ height: 200 }}></View>
         </ScrollView>
     )
 }
