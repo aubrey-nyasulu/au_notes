@@ -2,7 +2,7 @@ import { useContext } from "react"
 import { ScrollView, useWindowDimensions, View } from "react-native"
 import NotesContext from "../context/NotesContext"
 import UXContext from "../context/UXContext"
-import Note from "./Note"
+import DeletedNote from "./DeletedNote"
 
 export default function DeletedNotes() {
     const { deletedNotes } = useContext(NotesContext)
@@ -18,7 +18,7 @@ export default function DeletedNotes() {
                 <View style={{ gap: 8, width: '100%', }}>
                     {
                         deletedNotes
-                            .map((note) => (<Note key={note.id} note={note} />))
+                            .map((note) => (<DeletedNote key={note.id} note={note} />))
                     }
                 </View>
             }
@@ -29,7 +29,7 @@ export default function DeletedNotes() {
                         {
                             deletedNotes
                                 .filter((_, i) => (i + 1) % 2 !== 0)
-                                .map((note) => (<Note key={note.id} note={note} />))
+                                .map((note) => (<DeletedNote key={note.id} note={note} />))
                         }
                     </View>
 
@@ -37,7 +37,7 @@ export default function DeletedNotes() {
                         {
                             deletedNotes
                                 .filter((_, i) => (i + 1) % 2 === 0)
-                                .map((note) => (<Note key={note.id} note={note} />))
+                                .map((note) => (<DeletedNote key={note.id} note={note} />))
                         }
                     </View>
                 </View>
